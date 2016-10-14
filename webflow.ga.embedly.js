@@ -17,8 +17,8 @@ Webflow.push(function () {
 
     if(w._gaq) {
       // older Google Analytics used by Webflow
-      var embedlyGAQ = function(type, action, value){
-        _gaq.push(['_trackEvent', 'Embedly > '+type, action, value, undefined]);
+      var embedlyGAQ = function(type, action, value) {
+        window._gaq.push(['_trackEvent', 'Embedly > '+type, action, value, undefined]);
       };
       w.embedly("defaults", {
         integrations: [embedlyGAQ]

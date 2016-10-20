@@ -9,3 +9,6 @@ This script connects these dots by initializing the Embedly platform code, creat
 Simply upload ```webflow.ga.embedly.js``` to your server, and include it via script tag in the Custom Code section of your site in Webflow:
 
 ```<script src="/webflow.ga.embedly.js" type="text/javascript"></script>```
+
+### License
+This library is licensed under the [MIT License](http://www.opensource.org/licenses/MIT).

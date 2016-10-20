@@ -2,6 +2,8 @@
  * Webflow Embedly GA: Adds Google Analytics event tracking to a Webflow site for Embedly embedded videos (Webflow's default)
  * @license MIT
  * @author Neal White - http://www.cohesive.cc
+ *
+ * https://github.com/cohesivecc/webflow-ga-embedly
 */
 var Webflow = Webflow || [];
 Webflow.push(function () {

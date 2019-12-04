@@ -17,7 +17,18 @@ Webflow.push(function () {
       s.parentNode.insertBefore(e, s);
     }
 
-    if(w._gaq) {
+    if(w.gtag) {
+      // new Google Analytics gtag.js used by Webflow
+      var embedlyGAQ = function(type, action, value) {
+        window.gtag('event', action, {
+          'event_category': 'Embedly > '+type,
+          'event_label': value,
+        });
+      };
+      w.embedly("defaults", {
+        integrations: [embedlyGAQ]
+      });
+    } else if(w._gaq) {
       // older Google Analytics used by Webflow
       var embedlyGAQ = function(type, action, value) {
         window._gaq.push(['_trackEvent', 'Embedly > '+type, action, value, undefined]);

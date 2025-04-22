@@ -1,7 +1,7 @@
 /*
  * Webflow Embedly GA: Adds Google Analytics event tracking to a Webflow site for Embedly embedded videos (Webflow's default)
  * @license MIT
- * @author Neal White - http://www.cohesive.cc
+ * @author Neal White - https://www.cohesive.cc
  *
  * https://github.com/cohesivecc/webflow-ga-embedly
 */
@@ -18,20 +18,27 @@ Webflow.push(function () {
     }
 
     if(w.gtag) {
-      // new Google Analytics gtag.js used by Webflow
       var embedlyGAQ = function(type, action, value) {
-        window.gtag('event', action, {
-          'event_category': 'Embedly > '+type,
-          'event_label': value,
-        });
-      };
-      w.embedly("defaults", {
-        integrations: [embedlyGAQ]
-      });
-    } else if(w._gaq) {
-      // older Google Analytics used by Webflow
-      var embedlyGAQ = function(type, action, value) {
-        window._gaq.push(['_trackEvent', 'Embedly > '+type, action, value, undefined]);
+        // convert to standardized GA4 video engagement events
+        if(type == 'Video') {
+          if(action == 'Play') {
+            window.gtag('event', 'video_start', {
+              'video_url': value,
+            });
+          } else if(action.match(/\d+% Watched/)) {
+            var pct = action.replace(/[^\d]/g, ''); // extract numeric percent
+            if(pct == '100') {
+              window.gtag('event', 'video_complete', {
+                'video_url': value,
+              });
+            } else {
+              window.gtag('event', 'video_progress', {
+                'video_url': value,
+                'video_percent': pct
+              })
+            }
+          }
+        }
       };
       w.embedly("defaults", {
         integrations: [embedlyGAQ]
